@@ -1,3 +1,57 @@
 <div class="m-4">
-  <div style="width: 400px"><mat-card>Simple card</mat-card></div>
+  <div class="m-1 p-1 d-flex flex-wrap">
+    <mat-card
+      class="project-card m-2 d-flex align-center flex-column justify-content-center align-items-center"
+    >
+      <mat-card-content
+        class="d-flex align-center flex-column justify-content-center align-items-center"
+      >
+        <form
+          [formGroup]="form"
+          (ngSubmit)="saveDetails(form)"
+          *ngIf="isAddProject; else elseBlock"
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Project Name</mat-label>
+            <input
+              matInput
+              placeholder="Enter the project name"
+              formControlName="projectName"
+            />
+            <mat-error>Project name is required!</mat-error>
+          </mat-form-field>
+          <div class="mt-2">
+            <button mat-raised-button color="primary" type="submit">
+              Save
+            </button>
+          </div>
+        </form>
+
+        <ng-template #elseBlock>
+          <button
+            mat-raised-button
+            color="primary"
+            class="d-flex align-center"
+            (click)="isAddProject = !isAddProject"
+          >
+            <mat-icon aria-label="Example icon-button with a heart icon"
+              >add</mat-icon
+            >
+            Add Project
+          </button></ng-template
+        >
+      </mat-card-content>
+    </mat-card>
+    <mat-card *ngFor="let eachProject of projectList" class="project-card m-2">
+      <img
+        src="{{ eachProject.image }}"
+        class="project-image"
+        alt="project"
+        mat-card-image
+      />
+      <mat-card-content>
+        <h5 class="title">{{ eachProject.name }}</h5>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
